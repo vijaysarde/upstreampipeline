@@ -18,6 +18,7 @@ pipeline {
 	     sh '''
 	     echo "Printing files at ${WORKSPACE}"
 	     ls ${WORKSPACE}
+	     cat upstreampipeline
 	     '''
      }
    }
