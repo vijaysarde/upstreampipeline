@@ -6,7 +6,7 @@ pipeline {
      script {
        node() {
          checkout scm
-         build job: 'my_downstream_job', propagate: true,
+         build job: 'kedar_downstream', propagate: true,
          parameters: [[$class: 'StringParameterValue', name: 'GIT_URL', value: sh(returnStdout: true, script: 'git config remote.origin.url').trim()],
 		      [$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.BRANCH_NAME]
 		 ]
