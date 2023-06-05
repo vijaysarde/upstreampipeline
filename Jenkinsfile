@@ -4,13 +4,13 @@ pipeline {
    stage('Upstream pipeline') {
     steps {
      script {
-       node() {
 	     sh '''
 	     echo "Printing files at ${WORKSPACE}"
 	     ls ${WORKSPACE}
 	     cd ${WORKSPACE}/upstreampipeline
 	     ls
 	     '''
+       node() {
          checkout scm
          build job: 'kedar_downstream', propagate: true,
          parameters: [[$class: 'StringParameterValue', name: 'GIT_URL', value: sh(returnStdout: true, script: 'git config remote.origin.url').trim()],
