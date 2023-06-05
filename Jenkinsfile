@@ -4,9 +4,6 @@ pipeline {
    stage('Upstream pipeline') {
     steps {
      script {
-	       sh '''
-	       git clone https://github.com/vijaysarde/upstreampipeline.git
-	       '''
        node() {
 
          checkout scm
@@ -18,7 +15,8 @@ pipeline {
 	     sh '''
 	     echo "Printing files at ${WORKSPACE}"
 	     ls ${WORKSPACE}
-	     cat upstreampipeline
+	     cd ${WORKSPACE}/upstreampipeline
+	     ls
 	     '''
      }
    }
