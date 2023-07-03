@@ -58,3 +58,103 @@ The code you provided is a Jenkins pipeline script that defines a Jenkins pipeli
 - `parameters: [[$class: 'StringParameterValue', name: 'GIT_URL', value: sh(returnStdout: true, script: 'git config remote.origin.url').trim()]]`: Specifies a parameter named "GIT_URL" with the value obtained by executing the Git command `git config remote.origin.url`. This parameter can be used to pass information to downstream jobs.
 
 In summary, this pipeline script defines a single stage called "Upstream pipeline". It checks out the source code, triggers the execution of a downstream job named "my_downstream_job", and provides the Git URL as a parameter to the downstream job.
+
+
+# Here is another one example
+
+Upstream Pipeline Jenkinsfile
+
+```
+pipeline {
+   agent any
+
+   stages {
+       stage('Trigger Downstream Pipeline') {
+           steps {
+               script {
+                   // Define the parameters to pass to the downstream pipeline
+                   def skipSonar = true  // Set the value based on your logic
+				   def appType = 'maven' // Set the appType based on your logic
+
+                   // Trigger the downstream pipeline with parameters
+                   build job: 'downstream-pipeline', parameters: [
+                       booleanParam(name: 'SKIP_SONAR', value: skipSonar),
+					   stringParam(name: 'APP_TYPE', value: appType)
+                   ]
+               }
+           }
+       }
+   }
+}
+```
+
+Downstream Pipeline Jenkinsfile
+
+```
+pipeline {
+   agent any
+
+   parameters {
+       booleanParam(name: 'SKIP_SONAR', defaultValue: false, description: 'Skip Sonar Analysis')
+   }
+
+   stages {
+       stage('Code Checkout') {
+           steps {
+               // Checkout source code from version control system (e.g., Git)
+               // Example: git 'https://github.com/your/repo.git'
+           }
+       }
+
+       stage('Sonar Analysis') {
+           when {
+               expression { !params.SKIP_SONAR }
+           }
+           steps {
+               // Perform SonarQube analysis
+               // Example: sh 'sonar-scanner'
+           }
+       }
+
+       stage('Build App') {
+           steps {
+               // Determine the app type based on logic (e.g., Maven or Gradle)
+               script {
+                   def appType = params.APP_TYPE  
+
+                   if (appType == 'maven') {
+                       // Build the Maven application
+                       sh 'mvn clean install'
+                   } else if (appType == 'gradle') {
+                       // Build the Gradle application
+                       sh './gradlew build'
+                   } else {
+                       error "Unsupported app type: ${appType}"
+                   }
+               }
+           }
+       }
+
+       stage('Upload Artifact to Repository') {
+           steps {
+               // Upload the built artifact to your artifact repository
+               // Example: sh 'mvn deploy'
+           }
+       }
+
+       stage('Build Docker Image and Push') {
+           steps {
+               // Build and push the Docker image
+               // Example: sh 'docker build -t your-image . && docker push your-image'
+           }
+       }
+
+       stage('Deploy App') {
+           steps {
+               // Deploy the application to the desired environment
+               // Example: sh 'kubectl apply -f your-deployment.yaml'
+           }
+       }
+   }
+}
+```
