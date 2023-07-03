@@ -79,7 +79,7 @@ pipeline {
                    // Trigger the downstream pipeline with parameters
                    build job: 'downstream-pipeline', parameters: [
                        booleanParam(name: 'SKIP_SONAR', value: skipSonar),
-					   stringParam(name: 'APP_TYPE', value: appType)
+                       stringParam(name: 'APP_TYPE', value: appType)
                    ]
                }
            }
@@ -96,6 +96,7 @@ pipeline {
 
    parameters {
        booleanParam(name: 'SKIP_SONAR', defaultValue: false, description: 'Skip Sonar Analysis')
+       stringParam(name: 'APP_TYPE', defaultValue: 'maven', description: 'Applicaiton Type')
    }
 
    stages {
