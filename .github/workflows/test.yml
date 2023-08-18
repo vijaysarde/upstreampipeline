@@ -7,4 +7,7 @@ jobs:
       - name: my-step
         run: |
           echo "GITHUB_WORKSPACE : $GITHUB_WORKSPACE"
-          echo "ITHUB_ENV: $GITHUB_ENV"
+          echo "GITHUB_ENV: $GITHUB_ENV"
+          echo "RUNNER_TEMP: $RUNNER_TEMP"
+          cd $RUNNER_TEMP && ls
+          cd _runner_file_commands && ls
