@@ -9,5 +9,12 @@ jobs:
           echo "GITHUB_WORKSPACE : $GITHUB_WORKSPACE"
           echo "GITHUB_ENV: $GITHUB_ENV"
           echo "RUNNER_TEMP: $RUNNER_TEMP"
+
+          echo "cd RUNNER_TEMP && ls"
           cd $RUNNER_TEMP && ls
+
+          echo "cd _runner_file_commands && ls"
           cd _runner_file_commands && ls
+
+          echo "cat GITHUB_ENV"
+          cat $GITHUB_ENV
