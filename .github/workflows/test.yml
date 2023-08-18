@@ -16,5 +16,10 @@ jobs:
           echo "cd _runner_file_commands && ls"
           cd _runner_file_commands && ls
 
+          
+          
+          cd $RUNNER_TEMP/$_github_workflow && pwd && ls
+          
+          echo "name=vijay" >> $GITHUB_ENV
           echo "cat GITHUB_ENV"
           cat $GITHUB_ENV
