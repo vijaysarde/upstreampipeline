@@ -7,4 +7,8 @@ jobs:
       - name: my-step
         run: |
           echo "GITHUB_REPO : ${GITHUB_REPOSITORY#*/}"
-          echo "GITHUB_BRANCH: ${{ github.ref }}
+          echo "GITHUB_REPO with std: ${GITHUB_REF#refs/heads/}"
+          echo "GITHUB_BRANCH without name: ${{ github.ref }}"
+          echo "GITHUB_BRANCH with name: ${{ github.ref_name }}"
+          
+          
