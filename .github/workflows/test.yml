@@ -7,13 +7,17 @@ jobs:
       - name: my-step
         run: |
           pwd
-          echo "GITHUB_REPO : ${GITHUB_WORKSPACE}"
-          cd..
+          echo "GITHUB_WORKSPACE : ${GITHUB_WORKSPACE}"
+          cd ..
+          echo "after cd .."
           pwd
           echo "step2 ended"
         
       - name: my-step2
         run: |
+          echo "second step"
           pwd
-          echo "GITHUB_REPO : ${GITHUB_WORKSPACE}"
+          echo "GITHUB_WORKSPACE : ${GITHUB_WORKSPACE}"
+          cd ..
+          echo "after cd .."
           pwd
