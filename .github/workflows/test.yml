@@ -6,4 +6,4 @@ jobs:
     steps:
       - name: my-step
         run: |
-          echo "GITHUB_REPO : ${{ github.repository }}"
+          echo "GITHUB_REPO : ${GITHUB_REPOSITORY#*/}"
